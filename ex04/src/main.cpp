@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 12:23:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/02 14:01:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/02 17:10:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,33 @@ bool	open_file(std::fstream &file, const char *name, std::ios_base::openmode mod
 	return (true);
 }
 
+std::string	replace(std::string content, std::string str_old, std::string str_new)
+{
+	int			pos;
+	int			old_len;
+	std::string	definitly;
+
+	old_len = str_old.length();
+	while (42)
+	{
+		pos = content.find(str_old);
+		if (pos < 0)
+			break ;
+		definitly += content.substr(0, pos);
+		definitly += str_new;
+		content.erase(0, pos + old_len);
+	}
+	definitly += content;
+	return (definitly);
+}
+
 int	main( int ac, char **av )
 {
-	std::ifstream	infile;
-	std::ofstream	outfile;
-	std::string		replace;
+	std::fstream	infile;
+	std::fstream	outfile;
+	std::string		out;
 	std::string		line;
+	std::string		content;
 
 	if (ac != 4)
 	{
@@ -42,32 +63,17 @@ int	main( int ac, char **av )
 		print_usage();
 		return (1);
 	}
-	// if (open_file(infile, av[1], std::ios_base::in) == false)
-	// 	return (1);
-	infile.open(av[1]);
-	if (infile.is_open() == false)
+	if (open_file(infile, av[1], std::ios_base::in) == false)
+		return (1);
+	out = av[1];
+	out.append(".replace");
+	if (open_file(outfile, out.c_str(), std::ios_base::out) == false)
 	{
-		std::cerr << "Error opening file" << std::endl;
-		return (1);		
+		infile.close();
+		return (1);
 	}
-	replace = av[1];
-	replace.append(".replace");
-	outfile.open(replace.c_str());
-	if (outfile.is_open() == false)
-	{
-		std::cerr << "Error opening file" << std::endl;
-		return (1);		
-	}
-	// if (open_file(infile, replace.c_str(), std::ios_base::out) == false)
-	// {
-	// 	infile.close();
-	// 	return (1);
-	// }
-	while (getline(infile, line))
-	{
-		std::cout << line << std::endl;
-	}
-	// outfile << "aaaa\n";
-	std::cout << "Debug " << av[1] << " " << getline(infile, line) << std::endl;
+	while (std::getline(infile, line))
+		content += line.append(1, '\n');
+	outfile << replace(content, av[2], av[3]) << std::endl;
 	return (0);
 }
