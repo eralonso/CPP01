@@ -11,14 +11,17 @@
 /* ************************************************************************** */
 
 #include	"Harl.hpp"
+#include	<iostream>
 
-int	main( void )
+int	main( int ac, char **av )
 {
 	Harl	one;
 
-	one.complain("debug");
-	one.complain("info");
-	one.complain("warning");
-	one.complain("error");
+	if (ac != 2)
+	{
+		std::cerr << "Invalid number of arguments" << std::endl;
+		return (1);
+	}
+	one.complain(av[1]);
 	return (0);
 }

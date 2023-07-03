@@ -15,10 +15,10 @@
 
 Harl::Harl( void )
 {
-	_levels[0] = "debug";
-	_levels[1] = "info";
-	_levels[2] = "warning";
-	_levels[3] = "error";
+	_levels[0] = "DEBUG";
+	_levels[1] = "INFO";
+	_levels[2] = "WARNING";
+	_levels[3] = "ERROR";
 	_fpm[0] = &Harl::_debug;
 	_fpm[1] = &Harl::_info;
 	_fpm[2] = &Harl::_warning;
@@ -29,41 +29,50 @@ Harl::~Harl( void ) {}
 
 void	Harl::_debug( void )
 {
-	std::cout << "\'DEBUG\'\nI love having extra bacon for my " \
+	std::cout << "[ DEBUG ]\nI love having extra bacon for my " \
 	<< "7XL-double-cheese-triple-picklespecial-ketchup burger. I really do!" \
 	<< std::endl;
 }
 
 void	Harl::_info( void )
 {
-	std::cout << "\'INFO\'\nI cannot believe adding extra bacon costs more money. " \
+	std::cout << "[ INFO ]\nI cannot believe adding extra bacon costs more money. " \
 	<< "You didn't put enough bacon in my burger! If you did, I" \
 	<< "wouldn't be asking for more!" << std::endl;
 }
 
 void	Harl::_warning( void )
 {
-	std::cout << "\'WARNING\'\nI think I deserve to have some extra bacon for free." \
+	std::cout << "[ WARNING ]\nI think I deserve to have some extra bacon for free." \
 	<<" I've been coming for years whereas you started working here" \
 	<< " since last month" << std::endl;
 }
 
 void	Harl::_error( void )
 {
-	std::cout << "\'ERROR\'\nThis is unacceptable! I want to speak to the manager now" \
+	std::cout << "[ ERROR ]\nThis is unacceptable! I want to speak to the manager now" \
 	<< std::endl;
 }
 
 void	Harl::complain( std::string level )
 {
-	// for ( int i = 0; i < 4; i++ )
-	// 	if (!level.compare(_levels[i]))
-	// 		(this->*_fpm[i])();
-	switch (level)
+	int	lvl;
+
+	for ( lvl = 0; lvl < 4; lvl++ )
+		if (!level.compare(_levels[lvl]))
+			break ;
+	switch (lvl)
 	{
-		case :
-			break;
-		default:
-			break;
+		case 0:
+			Harl::_debug();
+			std::cout << std::endl;
+		case 1:
+			Harl::_info();
+			std::cout << std::endl;
+		case 2:
+			Harl::_warning();
+			std::cout << std::endl;
+		case 3:
+			Harl::_error();
 	}
 }
