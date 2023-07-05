@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 17:21:28 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/02 19:22:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/05 10:17:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ Harl::Harl( void )
 	_levels[1] = "INFO";
 	_levels[2] = "WARNING";
 	_levels[3] = "ERROR";
-	_fpm[0] = &Harl::_debug;
-	_fpm[1] = &Harl::_info;
-	_fpm[2] = &Harl::_warning;
-	_fpm[3] = &Harl::_error;
 }
 
 Harl::~Harl( void ) {}
